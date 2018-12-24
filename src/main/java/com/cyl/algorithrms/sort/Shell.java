@@ -12,17 +12,13 @@ public class Shell {
         int h = 1;
         while (h < N / 3) {
             // 1, 4, 13, 40, 121, 364, 1093......
-            System.out.println("3*h+1之前h: "+h);
             h = 3 * h + 1;
-            System.out.println("3*h+1之后h: "+h);
         }
         while (h >= 1) {
             //将数组变为h有序
             for (int i = h; i < N; i++) {
                 //将a[i]插入到a[i-h], a[i-2h], a[i-3*h]...之中
-                System.out.println("交换前h="+h+" i="+i);
                 for (int j = i; j >= h && less(a[j], a[j-h]); j -= h) {
-                    System.out.println("交换h="+h+" i="+i+" j="+j);
                     exch(a, j, j-h);
                 }
             }
