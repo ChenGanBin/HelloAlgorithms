@@ -1,0 +1,96 @@
+package com.cyl.algorithrms.sort;
+
+/**
+ * 快速排序
+ */
+public class Quick {
+
+    public static void sort(Comparable[] a) {
+        sort(a, 0, a.length - 1);
+    }
+
+    public static void sort(Comparable[] a, int lo, int hi) {
+        if(hi <= lo) {
+            return;
+        }
+
+        int j = partition(a, lo, hi);
+
+        sort(a, lo, j - 1);
+        sort(a, j + 1, hi);
+    }
+
+    /**
+     * 切分
+     */
+    private static int partition(Comparable[] a, int lo, int hi) {
+        //将数组切分为a[lo..i-1], a[i+1..hi]
+        //左右扫描指针
+        int i = lo, j=hi+1;
+        //切分元素
+        Comparable v = a[lo];
+        while (true) {
+            //扫描左右，检查扫描是否结束并交换位置
+
+            //寻找小于切分元素的元素
+            while (less(a[++i], v)) {
+                if (i == hi) {
+                    break;
+                }
+            }
+
+            //寻找大于切分元素的元素
+            while (less(v, a[--j])) {
+                if (j == lo) {
+                    break;
+                }
+            }
+
+            if(i >= j) {
+                break;
+            }
+
+            exch(a, i, j);
+        }
+
+        //将v=a[j]放入正确的位置
+        exch(a, lo, j);
+        //a[lo..j-1] <= a[j] <= a[j+1..hi]达成
+        return j;
+    }
+
+    private static boolean less(Comparable v, Comparable w) {
+        return v.compareTo(w) < 0;
+    }
+
+    private static void exch(Comparable[] a, int i, int j) {
+        Comparable t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+    }
+
+    private static void show(Comparable[] a) {
+        //    在单行中打印数组
+        for (int i = 0; i < a.length; i++) {
+            System.out.print(a[i] + " ");
+        }
+        System.out.println();
+    }
+
+    public static boolean isSorted(Comparable[] a) {
+        //    测试数组元素是否有序
+        for (int i = 1; i < a.length; i++) {
+            if(less(a[i], a[i-1])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        String[] a = "QUICKSORTEXAMPLE".split("");
+        sort(a);
+        assert isSorted(a);
+        show(a);
+    }
+}
