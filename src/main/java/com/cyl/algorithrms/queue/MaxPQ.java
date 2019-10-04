@@ -20,7 +20,7 @@ public class MaxPQ<Key extends Comparable<Key>> {
      */
     @SuppressWarnings("unchecked")
     public MaxPQ(int maxN){
-        pq = new Comparable<Key>[maxN + 1];
+        //pq = new Comparable<Key>[maxN + 1];
     }
 
     /**
